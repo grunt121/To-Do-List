@@ -12,12 +12,14 @@ class SecondViewController: UIViewController {
 
     @IBOutlet var newToDoItem: UITextField!
     
-    @IBAction func addNewToDo(sender: AnyObject) {
-        
-        let returnedArray = NSUserDefaults.standardUserDefaults().objectForKey("arrayMasterList")! as! NSArray
-        returnedArray.append(newToDoItem.text)
-        
+    @IBAction func addNewItem(sender: AnyObject) {
+        toDoList.append(newToDoItem.text!)
+        newToDoItem.text = ""
+        //Stating that the arrayMasterList is the same as toDoList
+        NSUserDefaults.standardUserDefaults().setObject(toDoList, forKey: "arrayMasterList")
+
     }
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +34,12 @@ class SecondViewController: UIViewController {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
         
     {
-        //this closes the keyboard
+        //this closes the keyboard by touching outside the area
         self.view.endEditing(true)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        newToDoItem.resignFirstResponder()
         return true
     }
 
